@@ -109,7 +109,7 @@ defmodule PhoenixStorybook.Router do
   def __options__(opts, path, session_name, root_layout) do
     live_socket_path = Keyword.get(opts, :live_socket_path, "/live")
     assets_path = Keyword.get(opts, :assets_path, @default_assets_path)
-
+    layout_view = Application.get_env(:phoenix_storybook, :layout_view)
     backend_module =
       Keyword.get_lazy(opts, :backend_module, fn ->
         raise "Missing mandatory :backend_module option."
@@ -126,6 +126,7 @@ defmodule PhoenixStorybook.Router do
 
     session_args = [
       backend_module,
+      layout_view,
       live_socket_path,
       assets_path,
       path,
@@ -136,7 +137,7 @@ defmodule PhoenixStorybook.Router do
     {
       session_name,
       [
-        root_layout: {PhoenixStorybook.LayoutView, root_layout},
+        root_layout: {layout_view, root_layout},
         on_mount: PhoenixStorybook.Mount,
         session: {__MODULE__, :__session__, session_args}
       ],
@@ -144,6 +145,7 @@ defmodule PhoenixStorybook.Router do
         private: %{
           live_socket_path: live_socket_path,
           backend_module: backend_module,
+          layout_view: layout_view,
           application_router: Keyword.fetch!(opts, :application_router),
           assets_path: assets_path,
           csp_nonce_assign_key: csp_nonce_assign_key,
