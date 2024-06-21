@@ -159,6 +159,7 @@ defmodule PhoenixStorybook.Router do
   def __session__(
         conn,
         backend_module,
+        layout_view,
         live_socket_path,
         assets_path,
         path,
@@ -167,6 +168,7 @@ defmodule PhoenixStorybook.Router do
       ) do
     %{
       "backend_module" => backend_module,
+      "layout_view" => layout_view,
       "live_socket_path" => live_socket_path,
       "assets_path" => assets_path,
       "root_path" => path,

@@ -18,7 +18,7 @@ defmodule PhoenixStorybook.Web do
       @moduledoc false
       use Phoenix.View,
         namespace: PhoenixStorybook,
-        root: Keyword.get(unquote(opts), :root, "lib/phoenix_storybook/templates") 
+        root: Keyword.get(unquote(opts), :root, "lib/phoenix_storybook/templates")
 
       import PhoenixStorybook.Components.Icon
 
